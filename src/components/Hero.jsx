@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const words = ["Precision.", "Style.", "Excellence."]
 
@@ -23,7 +23,7 @@ const Hero = () => {
   }, [])
 
   return (
-    <section id="home" className="relative w-full h-screen flex overflow-hidden">
+    <section id="home" className="relative w-full min-h-screen flex flex-col md:flex-row overflow-hidden">
 
       {/* Mouse follower glow */}
       <motion.div
@@ -37,7 +37,7 @@ const Hero = () => {
 
       {/* LEFT SIDE */}
       <div
-        className="w-1/2 relative flex items-center px-20 overflow-hidden"
+        className="w-full md:w-1/2 relative flex items-center px-8 md:px-20 overflow-hidden min-h-screen pb-16 md:pb-0"
         style={{ background: 'linear-gradient(135deg, #1a0f00 0%, #2d1a00 50%, #1a0a2e 100%)' }}
       >
 
@@ -75,7 +75,7 @@ const Hero = () => {
           transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
         />
 
-        <div className="relative z-10 pt-24">
+        <div className="relative z-10 pt-28 md:pt-24">
 
           {/* Label */}
           <motion.div
@@ -107,11 +107,11 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <span className="block text-6xl">Where Every</span>
-              <span className="block text-6xl">Cut Defines</span>
+              <span className="block text-4xl md:text-6xl">Where Every</span>
+              <span className="block text-4xl md:text-6xl">Cut Defines</span>
               <motion.span
                 key={currentWord}
-                className="block text-7xl italic"
+                className="block text-5xl md:text-7xl italic"
                 style={{ color: '#C9A84C' }}
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -125,17 +125,17 @@ const Hero = () => {
 
           {/* Subtext */}
           <motion.p
-            className="text-cream/50 text-base leading-relaxed mb-10 max-w-sm"
+            className="text-cream/50 text-sm md:text-base leading-relaxed mb-10 max-w-sm"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            Lagos finest barbershop experience. Where precision meets culture,every cut tells a story.
+            Lagos finest barbershop experience. Where precision meets culture, every cut tells a story.
           </motion.p>
 
           {/* Buttons */}
           <motion.div
-            className="flex gap-4 mb-16"
+            className="flex flex-col sm:flex-row gap-4 mb-16"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
@@ -160,7 +160,7 @@ const Hero = () => {
 
           {/* Stats */}
           <motion.div
-            className="flex gap-10 pt-6 border-t border-gold/10 mb-8"
+            className="flex gap-8 md:gap-10 pt-6 border-t border-gold/10 mb-16 md:mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1 }}
@@ -175,7 +175,7 @@ const Hero = () => {
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
               >
-                <p className="font-playfair text-3xl text-cream font-bold">{stat.num}</p>
+                <p className="font-playfair text-2xl md:text-3xl text-cream font-bold">{stat.num}</p>
                 <p className="text-cream/30 text-xs tracking-widest uppercase mt-1">{stat.label}</p>
               </motion.div>
             ))}
@@ -185,7 +185,7 @@ const Hero = () => {
       </div>
 
       {/* RIGHT SIDE - Image */}
-      <div className="w-1/2 relative overflow-hidden">
+      <div className="hidden md:block w-full md:w-1/2 relative overflow-hidden min-h-screen">
         <motion.img
           src="/images/10.png"
           alt="barber"
@@ -203,7 +203,7 @@ const Hero = () => {
           style={{ background: 'linear-gradient(to top, #0a0806 0%, transparent 40%)' }}
         />
 
-        {/* Animated gold bar — replaces spinning star */}
+        {/* Animated gold bar */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-1"
           style={{ background: 'linear-gradient(to right, transparent, #C9A84C, transparent)' }}
