@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect,useState } from 'react'
 
 const words = ["Precision.", "Style.", "Excellence."]
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [currentWord, setCurrentWord] = useState(0)
-  const ref = useRef(null)
 
   useEffect(() => {
     const handleMouse = (e) => {
