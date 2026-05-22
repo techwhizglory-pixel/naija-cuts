@@ -10,13 +10,21 @@ const services = [
   { id: 6, tag: 'Exclusive', title: 'Shape & Design', desc: 'Custom patterns, tribal lines, and bespoke hair art. Your cut, your identity.', price: '₦6,500', image: '/images/20.jpg' },
 ]
 
-// Simplified ServiceCard to allow parent grid to control exit animations smoothly
-const ServiceCard = ({ service, index }) => {
+const ServiceCard = ({ service }) => {
+  const handleCardBookClick = (e) => {
+    e.preventDefault()
+    const targetElement = document.getElementById('booking')
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <motion.div
       className="relative rounded-2xl overflow-hidden h-[320px] md:h-[380px] cursor-pointer"
       whileHover={{ y: -8 }}
       transition={{ duration: 0.3 }}
+      onClick={handleCardBookClick}
     >
       <img 
         src={service.image} 
@@ -35,10 +43,9 @@ const ServiceCard = ({ service, index }) => {
         <div className="flex items-center justify-between pt-3 border-t border-white/10">
           <p className="font-playfair text-xl font-bold" style={{ color: '#C9A84C' }}>{service.price}</p>
           <motion.button 
-            className="text-xs tracking-widest uppercase flex items-center gap-2" 
+            className="text-xs tracking-widest uppercase flex items-center gap-2 font-semibold" 
             style={{ color: '#C9A84C' }} 
             whileHover={{ x: 4 }} 
-            onClick={(e) => e.stopPropagation()}
           >
             BOOK NOW →
           </motion.button>
@@ -112,8 +119,8 @@ const Services = () => {
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
           >
-            {currentServices.map((service, i) => (
-              <ServiceCard key={service.id} service={service} index={i} />
+            {currentServices.map((service) => (
+              <ServiceCard key={service.id} service={service} />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -138,4 +145,4 @@ const Services = () => {
   )
 }
 
-export default Services;
+export default Services

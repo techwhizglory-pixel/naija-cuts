@@ -22,6 +22,15 @@ const Hero = () => {
     return () => clearInterval(interval)
   }, [])
 
+  // Smooth scroll handler function
+  const scrollToSection = (e, id) => {
+    e.preventDefault()
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <section id="home" className="relative w-full min-h-screen flex flex-col md:flex-row overflow-hidden">
 
@@ -140,22 +149,27 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <motion.button
-              className="text-dark px-8 py-4 text-sm font-medium tracking-widest uppercase"
+            <motion.a
+              href="#booking"
+              onClick={(e) => scrollToSection(e, 'booking')}
+              className="text-dark px-8 py-4 text-sm font-medium tracking-widest uppercase text-center cursor-pointer select-none"
               style={{ background: 'linear-gradient(135deg, #C9A84C, #8B6914)' }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Book A Session
-            </motion.button>
-            <motion.button
-              className="border border-gold/30 text-cream px-8 py-4 text-sm font-medium tracking-widest uppercase"
+            </motion.a>
+            
+            <motion.a
+              href="#services"
+              onClick={(e) => scrollToSection(e, 'services')}
+              className="border border-gold/30 text-cream px-8 py-4 text-sm font-medium tracking-widest uppercase text-center cursor-pointer select-none"
               whileHover={{ scale: 1.05, borderColor: '#C9A84C' }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
-              View Gallery →
-            </motion.button>
+              View Services →
+            </motion.a>
           </motion.div>
 
           {/* Stats */}
