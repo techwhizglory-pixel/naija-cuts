@@ -1,16 +1,10 @@
 import { motion } from 'framer-motion'
 
 const Footer = () => {
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <footer
-      className="relative w-full overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #0a0806 0%, #1a0f00 50%, #0a0806 100%)' }}
-    >
-      {/* Animated gold line top */}
+    <footer className="relative w-full overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0806 0%, #1a0f00 50%, #0a0806 100%)' }}>
       <motion.div
         className="absolute top-0 left-0 right-0 h-px"
         style={{ background: 'linear-gradient(to right, transparent, #C9A84C, transparent)' }}
@@ -18,13 +12,13 @@ const Footer = () => {
         transition={{ duration: 3, repeat: Infinity }}
       />
 
-      <div className="max-w-6xl mx-auto px-8 py-16">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
 
         {/* Top section */}
-        <div className="grid grid-cols-4 gap-12 pb-12 border-b border-white/5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pb-10 md:pb-12 border-b border-white/5">
 
-          {/* Brand */}
-          <div className="col-span-1">
+          {/* Brand — full width on mobile */}
+          <div className="col-span-2 md:col-span-1">
             <h2 className="font-playfair text-3xl text-cream mb-3">
               Naija <span style={{ color: '#C9A84C' }}>Cuts</span>
             </h2>
@@ -46,9 +40,7 @@ const Footer = () => {
 
           {/* Quick links */}
           <div>
-            <p className="text-xs tracking-[3px] uppercase mb-6" style={{ color: '#C9A84C' }}>
-              Quick Links
-            </p>
+            <p className="text-xs tracking-[3px] uppercase mb-4 md:mb-6" style={{ color: '#C9A84C' }}>Quick Links</p>
             <ul className="space-y-3">
               {[
                 { label: 'Home', id: 'home' },
@@ -59,7 +51,7 @@ const Footer = () => {
                 <li key={link.id}>
                   <button
                     onClick={() => scrollTo(link.id)}
-                    className="text-white/40 text-sm hover:text-gold transition-colors duration-200"
+                    className="text-sm transition-colors duration-200"
                     style={{ color: 'rgba(255,255,255,0.4)' }}
                     onMouseEnter={(e) => e.target.style.color = '#C9A84C'}
                     onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.4)'}
@@ -71,42 +63,23 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <p className="text-xs tracking-[3px] uppercase mb-6" style={{ color: '#C9A84C' }}>
-              Services
-            </p>
+          {/* Services — hidden on smallest screens, shown on sm+ */}
+          <div className="hidden sm:block">
+            <p className="text-xs tracking-[3px] uppercase mb-4 md:mb-6" style={{ color: '#C9A84C' }}>Services</p>
             <ul className="space-y-3">
-              {[
-                'The Classic Fade',
-                'Hot Towel Shave',
-                'Dread Locking',
-                'Manicure & Pedicure',
-                'Hair Dying',
-                'Shape & Design',
-              ].map((s) => (
-                <li key={s}>
-                  <span className="text-white/40 text-sm">{s}</span>
-                </li>
+              {['The Classic Fade', 'Hot Towel Shave', 'Dread Locking', 'Manicure & Pedicure', 'Hair Dying', 'Shape & Design'].map((s) => (
+                <li key={s}><span className="text-white/40 text-sm">{s}</span></li>
               ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <p className="text-xs tracking-[3px] uppercase mb-6" style={{ color: '#C9A84C' }}>
-              Contact
-            </p>
+            <p className="text-xs tracking-[3px] uppercase mb-4 md:mb-6" style={{ color: '#C9A84C' }}>Contact</p>
             <ul className="space-y-4">
               <li>
                 <p className="text-xs text-white/30 uppercase tracking-widest mb-1">Phone</p>
-                
-                <a  href="https://wa.me/2349113086817"
-                  className="text-white/60 text-sm hover:text-gold"
-                  style={{ color: 'rgba(255,255,255,0.6)' }}
-                >
-                  09113086817
-                </a>
+                <a href="https://wa.me/2349113086817" className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>09113086817</a>
               </li>
               <li>
                 <p className="text-xs text-white/30 uppercase tracking-widest mb-1">Location</p>
@@ -119,19 +92,13 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
         </div>
 
         {/* Bottom bar */}
-        <div className="flex items-center justify-between pt-8">
-          <p className="text-white/20 text-xs">
-            © 2025 Naija Cuts. All rights reserved.
-          </p>
-          <p className="text-white/20 text-xs">
-            Built with pride in Nigeria 🇳🇬
-          </p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-6 md:pt-8">
+          <p className="text-white/20 text-xs">© 2025 Naija Cuts. All rights reserved.</p>
+          <p className="text-white/20 text-xs">Built with pride in Nigeria 🇳🇬</p>
         </div>
-
       </div>
     </footer>
   )
