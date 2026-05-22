@@ -1,11 +1,18 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const Booking = () => {
+const Booking = ({ selectedService, setSelectedService }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', date: '', message: '' })
+
+  // Listen to shifts inside the parent selectedService state property
+  useEffect(() => {
+    if (selectedService) {
+      setForm((prev) => ({ ...prev, service: selectedService }))
+    }
+  }, [selectedService])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -13,7 +20,9 @@ const Booking = () => {
     e.preventDefault()
     const message = `Hello Naija Cuts! I'd like to book a session.\n\n👤 Name: ${form.name}\n📞 Phone: ${form.phone}\n📧 Email: ${form.email || 'Not provided'}\n✂️ Service: ${form.service}\n📅 Date: ${form.date}\n📝 Notes: ${form.message || 'None'}\n\nPlease confirm my booking. Thank you!`
     window.open(`https://wa.me/2349113086817?text=${encodeURIComponent(message)}`, '_blank')
+    
     setSubmitted(true)
+    setSelectedService("") // Reset selections clean after submission actions pass
   }
 
   const services = [
@@ -28,7 +37,6 @@ const Booking = () => {
 
   return (
     <section id="booking" className="relative w-full min-h-screen overflow-hidden">
-
       <img src="/images/90.png" alt="background" className="absolute inset-0 w-full h-full object-cover" onError={(e) => { e.target.style.display = 'none' }} />
       <div className="absolute inset-0" style={{ background: 'rgba(10,8,6,0.82)' }} />
       <motion.div
@@ -39,7 +47,6 @@ const Booking = () => {
       />
 
       <div ref={ref} className="relative z-10 max-w-6xl mx-auto py-16 md:py-24 px-4 md:px-8">
-
         {/* Header */}
         <motion.div
           className="text-center mb-10 md:mb-16"
@@ -54,7 +61,6 @@ const Booking = () => {
 
         {/* Main content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden">
-
           {/* LEFT — Contact info */}
           <motion.div
             className="p-8 md:p-10 flex flex-col justify-between"

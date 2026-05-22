@@ -1,7 +1,5 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-// Un-comment this line if you are using React Router for navigation
-// import { useNavigate } from 'react-router-dom'
 
 const plans = [
   {
@@ -18,32 +16,30 @@ const plans = [
   },
 ]
 
-const Pricing = () => {
+const Pricing = ({ setSelectedService }) => {
   const [selected, setSelected] = useState(0)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
-  
-  // Initialize the router navigation hook
-  // const navigate = useNavigate()
 
   const handleBooking = (e, plan) => {
-    // 1. Crucial: Prevent event from bubbling up to the card wrapper's onClick handler
+    // Prevent clicking the button from double-firing card selection animations
     e.stopPropagation()
+    setSelected(plans.indexOf(plan))
 
-    console.log(`Booking initialized for: ${plan.name}`)
+    // Map the plan names to your actual select dropdown option values in Booking
+    let mappedService = ""
+    if (plan.name === 'The Sharp') mappedService = 'Hot Towel Shave'
+    if (plan.name === 'The Fresh') mappedService = 'The Classic Fade'
+    if (plan.name === 'Oga Package') mappedService = 'Home Service (Oga Package)'
 
-    // --- CHOICE A: Multi-Page Route Navigation ---
-    // Redirects to your booking page and passes the plan details quietly in the history state
-    // navigate('/book', { state: { chosenPlan: plan.name } })
+    // Update the lifted state in App.jsx
+    setSelectedService(mappedService)
 
-    // --- CHOICE B: Single-Page Smooth Scroll Alternative ---
-    // If your booking form is on the same page, give it an id="booking" container and un-comment below:
-    /*
+    // Find the booking container via its HTML id attribute and slide to it
     const bookingSection = document.getElementById('booking')
     if (bookingSection) {
       bookingSection.scrollIntoView({ behavior: 'smooth' })
     }
-    */
   }
 
   return (
@@ -54,7 +50,6 @@ const Pricing = () => {
       <motion.div className="absolute top-0 left-0 right-0 h-px z-0" style={{ background: 'linear-gradient(to right, transparent, #C9A84C, transparent)' }} animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
 
       <div className="relative z-10 max-w-6xl mx-auto">
-
         <motion.div ref={ref} className="mb-10 md:mb-14" initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}>
           <p className="text-xs tracking-[4px] uppercase mb-3" style={{ color: '#C9A84C' }}>Pricing</p>
           <h2 className="font-playfair text-4xl md:text-5xl font-black text-white mb-3">Luxury Made Affordable</h2>
@@ -99,16 +94,13 @@ const Pricing = () => {
                   ))}
                 </ul>
                 <motion.button
-                  className="w-full py-3 rounded-lg text-sm font-medium tracking-widest uppercase shadow-md transition-all duration-300"
+                  className="w-full py-3 rounded-lg text-sm font-medium tracking-widest uppercase"
                   style={{
                     background: isSelected ? 'linear-gradient(135deg, #C9A84C, #8B6914)' : 'transparent',
                     border: isSelected ? 'none' : '1px solid rgba(255,255,255,0.1)',
-                    color: isSelected ? '#fff' : 'rgba(255,255,255,0.4)',
+                    color: isSelected ? '#fff' : 'rgba(255,255,255,0.3)',
                   }}
-                  whileHover={{ 
-                    scale: 1.02,
-                    boxShadow: isSelected ? "0 10px 25px rgba(201,168,76,0.3)" : "0 10px 20px rgba(255,255,255,0.05)"
-                  }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={(e) => handleBooking(e, plan)}
                 >

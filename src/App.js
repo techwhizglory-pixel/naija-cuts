@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Hero from "./components/Hero";
 import Marquee from "./components/Marquee";
 import Navbar from "./components/Navbar";
@@ -10,17 +11,26 @@ import About from "./components/About";
 import Footer from "./components/Footer";
 
 const App = () => {
+  // Shared state to hold the selected service text
+  const [selectedService, setSelectedService] = useState("");
+
   return (
-    <div>
+    <div className="bg-[#0a0806] min-h-screen text-white">
       <Navbar />
       <Hero />
       <Marquee />
       <Stats />
       <About />
       <Services />
-      <Pricing />
+      
+      {/* Pass setter function down to Pricing */}
+      <Pricing setSelectedService={setSelectedService} />
+      
       <Testimonials />
-      <Booking />
+      
+      {/* Pass current value and setter down to Booking */}
+      <Booking selectedService={selectedService} setSelectedService={setSelectedService} />
+      
       <Footer />
     </div>
   );
