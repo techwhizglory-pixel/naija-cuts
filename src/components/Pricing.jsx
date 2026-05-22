@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+// Un-comment this line if you are using React Router for navigation
+// import { useNavigate } from 'react-router-dom'
 
 const plans = [
   {
@@ -20,6 +22,29 @@ const Pricing = () => {
   const [selected, setSelected] = useState(0)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  
+  // Initialize the router navigation hook
+  // const navigate = useNavigate()
+
+  const handleBooking = (e, plan) => {
+    // 1. Crucial: Prevent event from bubbling up to the card wrapper's onClick handler
+    e.stopPropagation()
+
+    console.log(`Booking initialized for: ${plan.name}`)
+
+    // --- CHOICE A: Multi-Page Route Navigation ---
+    // Redirects to your booking page and passes the plan details quietly in the history state
+    // navigate('/book', { state: { chosenPlan: plan.name } })
+
+    // --- CHOICE B: Single-Page Smooth Scroll Alternative ---
+    // If your booking form is on the same page, give it an id="booking" container and un-comment below:
+    /*
+    const bookingSection = document.getElementById('booking')
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth' })
+    }
+    */
+  }
 
   return (
     <section className="relative w-full py-16 md:py-24 px-4 md:px-8 overflow-hidden">
@@ -74,15 +99,18 @@ const Pricing = () => {
                   ))}
                 </ul>
                 <motion.button
-                  className="w-full py-3 rounded-lg text-sm font-medium tracking-widest uppercase"
+                  className="w-full py-3 rounded-lg text-sm font-medium tracking-widest uppercase shadow-md transition-all duration-300"
                   style={{
                     background: isSelected ? 'linear-gradient(135deg, #C9A84C, #8B6914)' : 'transparent',
                     border: isSelected ? 'none' : '1px solid rgba(255,255,255,0.1)',
-                    color: isSelected ? '#fff' : 'rgba(255,255,255,0.3)',
+                    color: isSelected ? '#fff' : 'rgba(255,255,255,0.4)',
                   }}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    boxShadow: isSelected ? "0 10px 25px rgba(201,168,76,0.3)" : "0 10px 20px rgba(255,255,255,0.05)"
+                  }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={(e) => { e.stopPropagation(); setSelected(i) }}
+                  onClick={(e) => handleBooking(e, plan)}
                 >
                   Book This
                 </motion.button>
